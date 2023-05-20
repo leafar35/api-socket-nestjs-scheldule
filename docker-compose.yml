@@ -1,0 +1,18 @@
+version: "2"
+
+services:
+
+  apischeldule:
+    build:
+      context: .
+      dockerfile: dockerfile
+    container_name: api-socket-nestjs-scheldule
+    network_mode: "host"
+    user: "root"
+    volumes:
+      - ./:/home/sus
+    expose:
+      - "3003"
+    environment:
+      - COMPOSE_PROJECT_NAME
+    tty: true
