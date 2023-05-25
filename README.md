@@ -71,6 +71,8 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## Gerando executavel
 
 - npx pkg . -t node12-win-x64 -o app --debug
+- npx pkg . -t node12-linux -o app
+- chmod +x app
 - Configurações do package.json
 ```
 "bin": "dist/main.js",

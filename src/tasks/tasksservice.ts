@@ -20,8 +20,10 @@ export class TasksService {
     const response = await this.messagesRepository.getAllMessages()
     for(const message of response){
       if(moment().diff(message.schedule,'days') == 0){
-        const difference = moment(moment(new Date())).diff(message.schedule,'minutes', true).toString()
-        if(parseInt(difference) > 10 && parseInt(difference) < 30){
+        const difference = moment(moment(moment.now()).add(-3, 'hour').format('YYYY-MM-DD HH:mm:ss')).diff(message.schedule,'minutes', true).toString()
+        const positive = Math.abs(parseInt(difference))
+        console.log(positive)
+        if(positive > 10 && positive < 30){
           this.messagesSocket.handleSendMessage(message)
           this.logger.debug('Called when the current second is 10');
         }
