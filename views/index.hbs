@@ -8,22 +8,52 @@
 
     <body>
 
-        <h1>Messages do Sus</h1>
+        <h1 id="message">Bem vido ao app</h1>
+        <h1 id="cadastro">Cadastro no aplicativo</h1>
+        <form id="form">
+            <label>Nome</label>
+            <input name="name" value="" /> <br />
+            <label>E-mail</label>
+            <input name="email" value="" /><br />
+            <label>Cellphone</label>
+            <input name="cellphone" value="" /><br />
+            <button type="submit">Enviar</button>
+        </form>
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
         <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.11/dist/sweetalert2.all.min.js"></script>
         <script>
+            const stored = localStorage.getItem('user')
 
-            const socket = io("http://localhost:3000");
-            socket.on('connect', function () {
-                socket.emit('username', {email: 'user@example.com'});
-            });
-            socket.on('receiveMessage', function(msg) {
-                swal(
-                    msg.title,
-                    `Você está agendado para uma consulta ${msg.localization} as ${msg.schedule}`,
-                    'success'
-                )
-            });
+            if(stored){
+                $('#message').show();
+                $('#cadastro').hide();
+                $('#form').hide()
+                const socket = io("http://localhost:3000");
+                socket.on('connect', function () {
+                    socket.emit('username', {email: 'user@example.com'});
+                });
+                socket.on('receiveMessage', function(msg) {
+                    swal(
+                        msg.title,
+                        `Você está agendado para uma consulta ${msg.localization} as ${msg.schedule}`,
+                        'success'
+                    )
+                });
+            }else{
+                $('#message').hide();
+                $('#form').click((e) => {
+                    e.preventDefault()
+                    const respose = $.post("http://localhost:3000/user", $("#form").serialize())
+                    if(respose.status == 201){
+                        localStorage.setItem('user', JSON.stringify(respose.responseJSON))
+                        window.location.reload()
+                        return;
+                    }
+                    localStorage.removeItem('user')
+                    window.location.reload()
+                })
+            }
 
         </script>
 
