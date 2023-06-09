@@ -3,10 +3,13 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import Message from './message/message.entity';
-import { MessagesModule } from './message/message.module';
 import { ScheduleModule } from '@nestjs/schedule';
-import { TasksModule } from './tasks/tasks.module';
+import { UserModule } from './aplication/users/users.module';
+import ShelduleEntity from './domain/scheldule/entities/sheldule.entity';
+import UserEntity from './domain/users/entities/user.entity';
+import { ScheduleCustomModule } from './aplication/scheldule/scheldule.module';
+import ChannelEntity from './domain/channels/entities/channel.entity';
+import { ChannelModule } from './aplication/channels/channel.module';
 
 @Module({
   imports: [
@@ -18,11 +21,12 @@ import { TasksModule } from './tasks/tasks.module';
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'scheldule_sus',
-      entities: [Message],
+      entities: [ShelduleEntity, UserEntity, ChannelEntity],
       synchronize: true,
     }),
-    MessagesModule,
-    TasksModule,
+    UserModule,
+    ScheduleCustomModule,
+    ChannelModule,
   ],
   controllers: [AppController],
   providers: [AppService],
