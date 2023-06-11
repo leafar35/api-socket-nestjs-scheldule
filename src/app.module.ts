@@ -10,6 +10,7 @@ import UserEntity from './domain/users/entities/user.entity';
 import { ScheduleCustomModule } from './aplication/scheldule/scheldule.module';
 import ChannelEntity from './domain/channels/entities/channel.entity';
 import { ChannelModule } from './aplication/channels/channel.module';
+import { TasksModule } from './aplication/tasks/tasks.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { ChannelModule } from './aplication/channels/channel.module';
     UserModule,
     ScheduleCustomModule,
     ChannelModule,
+    TasksModule,
   ],
   controllers: [AppController],
   providers: [AppService],

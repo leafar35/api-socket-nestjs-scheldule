@@ -14,10 +14,12 @@ export class UpdateUser {
     
     async execute(entity: UserEntity): Promise<UserEntity> {
         try{
+            if(!entity.id)
+                throw new Error('Nao foi possivel atualizar')
             const response = await this.repository.save(entity);
             return response;
         }catch(e){
-            throw new Error("Não foi possivel criar o usuário");
+            throw new Error(e.message);
         }
     }
   

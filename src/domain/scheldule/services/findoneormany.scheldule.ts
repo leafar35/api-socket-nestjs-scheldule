@@ -14,7 +14,7 @@ export class FindOneOrManySchedule {
     
     async execute(id?: number): Promise<ShelduleEntity[] | ShelduleEntity> {
         try{
-            const criteria = (id) ? {where: { id: id}} : {}
+            const criteria = (id) ? {where: { id: id},relations: ['user']} : {relations: ['user']}
             const response = await this.repository.find(criteria);
             return response;
         }catch(e){

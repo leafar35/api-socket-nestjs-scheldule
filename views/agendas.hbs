@@ -4,27 +4,68 @@
     <head>
         <meta charset="UTF-8">
         <title>Agendas</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
 
     <body>
+        <div class="container">
+            <h1>Agendas</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Categoria</th>
+                    <th scope="col">Paciente</th>
+                    <th scope="col">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#scheldule}}
+                        <tr>
+                            <th id="{{id}}" scope="row">{{@index}}</th>
+                            <th>{{title}}</th>
+                            <th>{{category}}</th>
+                            <th>{{user.name}}</th>
+                            <th>
+                                <a href="#" class="editar">
+                                    <span class="glyphicon glyphicon-edit"></span>
+                                </a>
+                                <a href="#" class="excluir">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </a>
+                                <a href="#" class="notifique">
+                                    <span class="glyphicon glyphicon-send"></span>
+                                </a>
+                            </th>
+                        </tr>
+                    {{/scheldule}}
+                </tbody> 
+            </table>
+        </div>
 
-        <h1>Agendas</h1>
-        <table>
-            <tr>
-                <td>Titulo</td>
-                <td>Categoria</td>
-                <td>Usuário</td>
-                <td></td>
-            </tr>
-            {{#scheldule}}
-                <tr>
-                    <td>{{scheldule.title}}</td>
-                    <td>{{scheldule.category}}</td>
-                    <td>{{scheldule.title}}</td>
-                    <td></td>
-                </tr>
-            {{/scheldule}} 
-        </table>
+        <script>
+            $(".excluir").click(async(e) => {
+                const id = $(e.target).closest('tr').find('th:eq(0)').attr('id')
+                const response = $.get(`http://localhost:3000/schedule/${id}`)
+                if(response)
+                    location.reload()
+                return;
+            })
+            $(".editar").click((e) => {
+                const id = $(e.target).closest('tr').find('th:eq(0)').attr('id')
+                window.location.replace(`editar/${id}`);
+            })
+            $(".notifique").click(async(e) => {
+                const id = $(e.target).closest('tr').find('th:eq(0)').attr('id')
+                const response = await $.get(`http://localhost:3000/notifica/${id}`)
+                if(response)
+                    return alert('notificado')
+            })
+        </script>
 
     </body>
 </html>

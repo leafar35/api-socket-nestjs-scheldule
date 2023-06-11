@@ -1,6 +1,5 @@
 /* eslint-disable prettier/prettier */
 // eslint-disable-next-line prettier/prettier
-import ChannelEntity from 'src/domain/channels/entities/channel.entity';
 import ShelduleEntity from 'src/domain/scheldule/entities/sheldule.entity';
 import {
   BaseEntity,
@@ -8,7 +7,6 @@ import {
     CreateDateColumn,
     Entity,
     OneToMany,
-    OneToOne,
     PrimaryGeneratedColumn,
     UpdateDateColumn,
   } from 'typeorm';
@@ -29,9 +27,6 @@ import {
 
     @OneToMany(() => ShelduleEntity, (sheldule) => sheldule.user)
     public schedules!: ShelduleEntity[];
-
-    @OneToOne(() => ChannelEntity, (channel) => channel.user)
-    public user!: ChannelEntity;
   
     @CreateDateColumn()
     createdAt: Date;

@@ -4,24 +4,34 @@
     <head>
         <meta charset="UTF-8">
         <title>Sus aplicativo</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     </head>
 
     <body>
 
-        <h1 id="message">Bem vido ao app</h1>
-        <h1 id="cadastro">Cadastro no aplicativo</h1>
-        <form id="form">
-            <label>Nome</label>
-            <input name="name" value="" /> <br />
-            <label>E-mail</label>
-            <input name="email" value="" /><br />
-            <label>Cellphone</label>
-            <input name="cellphone" value="" /><br />
-            <button type="submit">Enviar</button>
-        </form>
+        <div class="container">
+            <h1 id="message">Bem vido ao app</h1>
+            <h1 id="cadastro">Cadastro no aplicativo</h1>
+            <form id="form">
+                <div class="form-group">
+                    <label for="name">Nome</label>
+                    <input type="text" class="form-control" name="name" value="" />
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" class="form-control" name="email" value="" />
+                </div>
+                <div class="form-group">
+                    <label for="cellphone">Cellphone</label>
+                    <input type="text" class="form-control" name="cellphone" value="" />
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">Cadastrar</button>
+            </form>
+        </div>
         <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
         <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.11/dist/sweetalert2.all.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script>
             const stored = localStorage.getItem('user')
 
@@ -31,7 +41,7 @@
                 $('#form').hide()
                 const socket = io("http://localhost:3000");
                 socket.on('connect', function () {
-                    socket.emit('username', {email: 'user@example.com'});
+                    socket.emit('username', JSON.parse(stored));
                 });
                 socket.on('receiveMessage', function(msg) {
                     swal(
@@ -42,11 +52,11 @@
                 });
             }else{
                 $('#message').hide();
-                $('#form').click((e) => {
+                $('#form').find('button').click(async(e) => {
                     e.preventDefault()
-                    const respose = $.post("http://localhost:3000/user", $("#form").serialize())
-                    if(respose.status == 201){
-                        localStorage.setItem('user', JSON.stringify(respose.responseJSON))
+                    const respose = await $.post("http://localhost:3000/user", $("#form").serialize())
+                    if(respose){
+                        localStorage.setItem('user', JSON.stringify(respose))
                         window.location.reload()
                         return;
                     }

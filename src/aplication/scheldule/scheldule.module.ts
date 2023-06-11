@@ -10,11 +10,12 @@ import { UpdateSchedule } from 'src/domain/scheldule/services/update.scheldule';
 import UserEntity from 'src/domain/users/entities/user.entity';
 import { FindOneOrMany } from 'src/domain/users/services/findoneormany.user';
 import { ScheduleConverter } from './converters/schedule.converter';
+import { DownloadController } from './download.controller';
 import { SchelduleController } from './scheldule.controller';
 
 @Module({
   imports: [TypeOrmModule.forFeature([ShelduleEntity, UserEntity])],
-  controllers: [SchelduleController],
+  controllers: [SchelduleController, DownloadController],
   providers: [CreateSchedule, DeleteScheldule, UpdateSchedule, FindOneOrManySchedule, ScheduleConverter, FindOneOrMany],
 })
 export class ScheduleCustomModule {}

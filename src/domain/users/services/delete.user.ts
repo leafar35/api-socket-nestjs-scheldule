@@ -14,10 +14,12 @@ export class DeleteUser {
     
     async execute(id: number): Promise<boolean> {
         try{
+            if(!id)
+                throw new Error('Nao foi possivel deletar')
             const response = await this.repository.delete(id)
             return (response.affected !== 0);
         }catch(e){
-            throw new Error("Não foi possivel criar o usuário");
+            throw new Error(e.message);
         }
     }
   

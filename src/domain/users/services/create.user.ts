@@ -14,6 +14,9 @@ export class CreateUser {
     
     async execute(entity: UserEntity): Promise<UserEntity> {
         try{
+            const exist = await this.repository.findOne({where: {email: entity.email, cellphone: entity.cellphone}})
+            if(exist)
+                throw new Error("Cadastro já existe!")
             const response = await this.repository.save(entity);
             return response;
         }catch(e){
