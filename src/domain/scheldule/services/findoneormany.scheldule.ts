@@ -12,9 +12,14 @@ export class FindOneOrManySchedule {
         private repository: Repository<ShelduleEntity>,
     ) {}
     
-    async execute(id?: number): Promise<ShelduleEntity[] | ShelduleEntity> {
+    async execute(id?: number, user = false): Promise<ShelduleEntity[] | ShelduleEntity> {
         try{
-            const criteria = (id) ? {where: { id: id},relations: ['user']} : {relations: ['user']}
+            let criteria: object
+            if(user){
+                criteria = {where: { user: {id: id}}}
+            }else{
+                criteria = (id) ? {where: { id: id},relations: ['user']} : {relations: ['user']}
+            }
             const response = await this.repository.find(criteria);
             return response;
         }catch(e){

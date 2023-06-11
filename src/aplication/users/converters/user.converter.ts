@@ -13,6 +13,7 @@ export class UserConverter {
             id: restmodel.id,
             name: restmodel.name,
             email: restmodel.email,
+            password: restmodel.password,
             cellphone: restmodel.cellphone
         })
     }
@@ -22,7 +23,8 @@ export class UserConverter {
             entity.id,
             entity.name,
             entity.email,
-            entity.cellphone
+            entity.cellphone,
+            entity.password
         );
     }
 
@@ -31,7 +33,8 @@ export class UserConverter {
             at.id, 
             at.name, 
             at.email,
-            at.cellphone
+            at.cellphone,
+            at.password
         ));
     }
 

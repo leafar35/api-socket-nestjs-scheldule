@@ -25,6 +25,9 @@ import {
     @Column()
     public cellphone: string
 
+    @Column()
+    public password: string
+
     @OneToMany(() => ShelduleEntity, (sheldule) => sheldule.user)
     public schedules!: ShelduleEntity[];
   

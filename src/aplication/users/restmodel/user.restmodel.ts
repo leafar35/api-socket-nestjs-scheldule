@@ -5,7 +5,8 @@ export class UserRestModel {
         public id: number,
         public name: string,
         public email: string,
-        public cellphone: string
+        public cellphone: string,
+        public password: string
     ){}
   
   }

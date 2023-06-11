@@ -11,6 +11,7 @@ import { ScheduleCustomModule } from './aplication/scheldule/scheldule.module';
 import ChannelEntity from './domain/channels/entities/channel.entity';
 import { ChannelModule } from './aplication/channels/channel.module';
 import { TasksModule } from './aplication/tasks/tasks.module';
+import { AuthenticatedModule } from './aplication/authenticated/authenticated.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { TasksModule } from './aplication/tasks/tasks.module';
     ScheduleCustomModule,
     ChannelModule,
     TasksModule,
+    AuthenticatedModule,
   ],
   controllers: [AppController],
   providers: [AppService],

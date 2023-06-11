@@ -35,6 +35,12 @@ export class SchelduleController {
     return response;
   }
 
+  @Get('myscheldule/:id')
+  async myscheldule(@Param('id') userId: number){
+    const response = await this.find.execute(userId, true)
+    return response;
+  }
+
   @Get(':id')
   async oneUser(@Param('id') id: number) {
     const response = await this.find.execute(id)
