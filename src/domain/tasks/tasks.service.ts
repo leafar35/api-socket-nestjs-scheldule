@@ -3,8 +3,8 @@
 import * as moment from 'moment';
 import { Injectable, Logger } from '@nestjs/common';
 import { Cron } from '@nestjs/schedule';
-import { ChennelGateway } from '../channels/services/chennel.gateway';
 import { FindOneOrManySchedule } from 'src/domain/scheldule/services/findoneormany.scheldule'
+import { HttpServiceCustom } from './http.service.custom';
 
 @Injectable()
 export class TasksService {
@@ -12,7 +12,7 @@ export class TasksService {
   
   constructor(
     private readonly schedule: FindOneOrManySchedule,
-    private readonly channel: ChennelGateway
+    private readonly axios: HttpServiceCustom
   ) {}
 
   @Cron('*/10 * * * * *')
@@ -24,7 +24,7 @@ export class TasksService {
           const difference = moment(moment(moment.now()).add(-3, 'hour').format('YYYY-MM-DD HH:mm:ss')).diff(message.schedule,'minutes', true).toString()
           const positive = Math.abs(parseInt(difference))
           if(positive > 10 && positive < 30){
-            this.channel.handleSendMessage(message)
+            this.axios.runChannel(message)
             this.logger.debug('Called when the current second is 10');
           }
         }

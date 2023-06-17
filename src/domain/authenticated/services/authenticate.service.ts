@@ -16,7 +16,7 @@ export class AuthenticateService {
     async execute(email: string, password: string) {
         try{
             password = Md5.hashStr(password);
-            const userentity = await this.repository.findOne({where:{email:email, password: password}})
+            const userentity = await this.repository.findOne({where:{email:email, password: password}, relations: ['patient']})
             if(userentity)
                 return userentity
             throw new Error('Não foi possivel fazer login')

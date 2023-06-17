@@ -1,12 +1,15 @@
 /* eslint-disable prettier/prettier */
 // eslint-disable-next-line prettier/prettier
+import PatientEntity from 'src/domain/patients/entities/patient.entity';
 import ShelduleEntity from 'src/domain/scheldule/entities/sheldule.entity';
 import {
   BaseEntity,
     Column,
     CreateDateColumn,
     Entity,
+    JoinColumn,
     OneToMany,
+    OneToOne,
     PrimaryGeneratedColumn,
     UpdateDateColumn,
   } from 'typeorm';
@@ -17,9 +20,6 @@ import {
     public id: number;
   
     @Column()
-    public name: string
-  
-    @Column()
     public email: string
 
     @Column()
@@ -27,6 +27,10 @@ import {
 
     @Column()
     public password: string
+
+    @OneToOne(() => PatientEntity, (patient) => patient.user)
+    @JoinColumn()
+    public patient: PatientEntity;
 
     @OneToMany(() => ShelduleEntity, (sheldule) => sheldule.user)
     public schedules!: ShelduleEntity[];

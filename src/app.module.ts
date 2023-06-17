@@ -12,6 +12,8 @@ import ChannelEntity from './domain/channels/entities/channel.entity';
 import { ChannelModule } from './aplication/channels/channel.module';
 import { TasksModule } from './aplication/tasks/tasks.module';
 import { AuthenticatedModule } from './aplication/authenticated/authenticated.module';
+import PatientEntity from './domain/patients/entities/patient.entity';
+import { PatientModule } from './aplication/patients/patient.module';
 
 @Module({
   imports: [
@@ -23,7 +25,7 @@ import { AuthenticatedModule } from './aplication/authenticated/authenticated.mo
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'scheldule_sus',
-      entities: [ShelduleEntity, UserEntity, ChannelEntity],
+      entities: [ShelduleEntity, UserEntity, ChannelEntity, PatientEntity],
       synchronize: true,
     }),
     UserModule,
@@ -31,6 +33,7 @@ import { AuthenticatedModule } from './aplication/authenticated/authenticated.mo
     ChannelModule,
     TasksModule,
     AuthenticatedModule,
+    PatientModule,
   ],
   controllers: [AppController],
   providers: [AppService],

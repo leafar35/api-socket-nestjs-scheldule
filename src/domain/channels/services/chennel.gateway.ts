@@ -37,7 +37,9 @@ export class ChennelGateway
 
   handleDisconnect(client: Socket) {
     this.logger.log(`Client Disconnected: ${client.id}`);
-    this.linkchannel.findOne({where:{channel: client.id}}).then(link => link.remove())
+    this.linkchannel.findOne({where:{channel: client.id}}).then(link => {
+      if(link) link.remove()
+    })
   }
 
   handleConnection(client: Socket) {

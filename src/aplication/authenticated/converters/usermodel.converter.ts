@@ -10,7 +10,6 @@ export class UserModelConverter {
     mapToEntity(model: UserEntity) : UserRestModel {
         return new UserRestModel(
             model.id,
-            model.name,
             model.email,
             model.cellphone,
             model.password,
