@@ -82,6 +82,20 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 },
 ```
 
+## Como executar o projeto
+
+- Navegue até a pasta do projeto entre na pasta e verifique se existe um arquivo chamado node_modules, se não existe rode o comando npm install.
+- Se não precisa rodar o comando npm install rode o comando npm run start:dev 
+- Se precisar rodar o comando npm install aguarde o termino e depois rode o comando npm run start:dev
+- Os comandos acima vão iniciar o projeto na maquina pessoal para testes... 
+
+## Urls do Projeto
+
+- Agendas.: http://localhost:3000/schedule/agendas
+- Cadastro no aplicativo, teste.: http://localhost:3000
+- Localhost e quando se executa no computador, quando está em uma maquina diferente é chamado o ip da maquina :3000
+- Como saber o ip da maquina? execute o comando ipconfig no powershell.
+
 ## License
 
 Nest is [MIT licensed](LICENSE).
